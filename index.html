@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Royal Perfumes — A Truly Royal Fragrance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black-deep:#0a0908;
+    --black-2:#141210;
+    --black-3:#1c1916;
+    --gold:#c9a24d;
+    --gold-bright:#e8cd8a;
+    --gold-dim:#8a6f36;
+    --cream:#f2e9d8;
+    --cream-dim:#b8ab8f;
+    --maroon:#3d0f10;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black-deep);
+    color:var(--cream);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.brand,.nav-links a,.btn,.price{font-family:'Cinzel', serif;}
+  .story, .quote, .tagline{font-family:'Cormorant Garamond', serif;}
+
+  ::selection{background:var(--gold);color:var(--black-deep);}
+
+  a{text-decoration:none;color:inherit;}
+
+  /* ---------- Ornament ---------- */
+  .corner-ornament{
+    position:absolute; width:60px; height:60px; opacity:.7; pointer-events:none;
+  }
+  .corner-ornament svg{width:100%;height:100%;stroke:var(--gold);fill:none;stroke-width:1.2;}
+  .tl{top:14px; left:14px;}
+  .tr{top:14px; right:14px; transform:scaleX(-1);}
+  .bl{bottom:14px; left:14px; transform:scaleY(-1);}
+  .br{bottom:14px; right:14px; transform:scale(-1,-1);}
+
+  .divider{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin:0 auto; max-width:280px; padding:28px 0;
+  }
+  .divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+  .divider .diamond{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
+
+  /* ---------- Header / Nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    background:rgba(10,9,8,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(201,162,77,.25);
+  }
+  .brand{
+    font-size:1.3rem; letter-spacing:3px; color:var(--gold-bright);
+    text-transform:uppercase; font-weight:600;
+  }
+  .brand span{color:var(--cream);font-weight:400;}
+  .nav-links{display:flex; gap:34px; list-style:none;}
+  .nav-links a{
+    font-size:.78rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--cream-dim); position:relative; padding-bottom:4px; cursor:pointer;
+    transition:color .3s;
+  }
+  .nav-links a:hover, .nav-links a.active{color:var(--gold-bright);}
+  .nav-links a::after{
+    content:''; position:absolute; bottom:0; left:0; width:0; height:1px;
+    background:var(--gold); transition:width .3s;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after{width:100%;}
+  .cart-icon{
+    position:relative; font-size:1.1rem; color:var(--gold-bright); cursor:pointer;
+  }
+  .cart-count{
+    position:absolute; top:-8px; right:-10px; background:var(--gold);
+    color:var(--black-deep); font-size:.65rem; width:16px; height:16px;
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Jost'; font-weight:500;
+  }
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer;}
+  .burger span{width:24px; height:1.5px; background:var(--gold);}
+
+  /* ---------- Page sections ---------- */
+  .page{display:none; min-height:100vh; padding-top:90px;}
+  .page.active{display:block; animation:fadeIn .6s ease;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---------- HOME ---------- */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:40px 20px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(201,162,77,.12), transparent 60%),
+      linear-gradient(180deg, var(--black-deep), var(--black-2) 80%);
+    border-bottom:1px solid rgba(201,162,77,.2);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(201,162,77,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,77,.05) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at center, black, transparent 75%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    letter-spacing:5px; font-size:.72rem; color:var(--gold);
+    text-transform:uppercase; margin-bottom:22px; z-index:1;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 7vw, 5.2rem); color:var(--cream);
+    font-weight:600; line-height:1.05; z-index:1;
+    text-shadow:0 0 40px rgba(201,162,77,.15);
+  }
+  .hero h1 em{
+    font-style:normal; color:transparent;
+    background:linear-gradient(120deg, var(--gold-dim), var(--gold-bright), var(--gold-dim));
+    -webkit-background-clip:text; background-clip:text;
+    background-size:200% auto; animation:shimmer 5s linear infinite;
+  }
+  @keyframes shimmer{to{background-position:200% center;}}
+  .tagline{
+    margin-top:22px; font-size:1.35rem; color:var(--cream-dim); font-style:italic;
+    max-width:520px; z-index:1;
+  }
+  .hero-btns{display:flex; gap:18px; margin-top:38px; flex-wrap:wrap; justify-content:center; z-index:1;}
+
+  .btn{
+    display:inline-block; padding:14px 34px; font-size:.78rem; letter-spacing:2.5px;
+    text-transform:uppercase; cursor:pointer; border:1px solid var(--gold);
+    background:transparent; color:var(--gold-bright); transition:.35s;
+    position:relative; overflow:hidden;
+  }
+  .btn.solid{background:var(--gold); color:var(--black-deep); font-weight:600;}
+  .btn.solid:hover{background:var(--gold-bright); box-shadow:0 0 26px rgba(201,162,77,.5);}
+  .btn:not(.solid):hover{background:rgba(201,162,77,.12); box-shadow:0 0 20px rgba(201,162,77,.25);}
+
+  .cod-badge{
+    display:inline-flex; align-items:center; gap:8px; margin-top:30px; z-index:1;
+    border:1px solid rgba(201,162,77,.4); padding:8px 20px; border-radius:30px;
+    font-size:.72rem; letter-spacing:2px; color:var(--gold-bright); text-transform:uppercase;
+    background:rgba(201,162,77,.06);
+  }
+  .cod-badge::before{content:'✓'; color:var(--gold);}
+
+  .section-heading{text-align:center; padding:0 20px;}
+  .section-heading .eyebrow{margin-bottom:10px;}
+  .section-heading h2{font-size:clamp(1.7rem,4vw,2.6rem); color:var(--cream); font-weight:600;}
+
+  .bestseller-strip{padding:70px 6vw 90px;}
+  .bs-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:26px; max-width:1200px; margin:40px auto 0;
+  }
+
+  /* Perfume bottle SVG card look */
+  .bottle-art{
+    height:180px; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,77,.12), transparent 70%);
+  }
+  .bottle-art svg{height:150px; filter:drop-shadow(0 10px 18px rgba(0,0,0,.6));}
+
+  .card{
+    background:linear-gradient(180deg, var(--black-3), var(--black-2));
+    border:1px solid rgba(201,162,77,.18);
+    transition:.4s; position:relative;
+  }
+  .card:hover{
+    border-color:var(--gold); transform:translateY(-6px);
+    box-shadow:0 18px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(201,162,77,.3);
+  }
+  .card-body{padding:20px 22px 24px; text-align:center;}
+  .card-body h3{font-size:1.02rem; color:var(--cream); letter-spacing:1px; font-weight:600;}
+  .card-body .note{font-family:'Cormorant Garamond'; font-style:italic; color:var(--cream-dim); font-size:.92rem; margin-top:6px;}
+  .price{color:var(--gold-bright); font-size:1.15rem; margin-top:14px; display:block;}
+  .add-btn{
+    margin-top:16px; width:100%; padding:11px; background:transparent;
+    border:1px solid var(--gold-dim); color:var(--gold-bright);
+    letter-spacing:2px; font-size:.7rem; text-transform:uppercase;
+    font-family:'Cinzel'; cursor:pointer; transition:.3s;
+  }
+  .add-btn:hover{background:var(--gold); color:var(--black-deep); border-color:var(--gold);}
+  .add-btn.added{background:var(--maroon); border-color:var(--maroon); color:var(--gold-bright);}
+
+  /* ---------- SHOP ---------- */
+  .shop-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px; max-width:1300px; margin:40px auto 100px; padding:0 6vw;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-wrap{
+    max-width:820px; margin:0 auto; padding:60px 6vw 110px; text-align:center;
+  }
+  .about-wrap .story{font-size:1.3rem; line-height:1.9; color:var(--cream-dim); margin-top:10px;}
+  .about-wrap .story strong{color:var(--gold-bright); font-weight:600;}
+  .pillars{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:30px; margin-top:60px;
+  }
+  .pillar{padding:26px 16px; border-top:1px solid var(--gold-dim);}
+  .pillar .num{font-family:'Cinzel'; color:var(--gold); font-size:.75rem; letter-spacing:2px;}
+  .pillar h4{margin-top:10px; color:var(--cream); font-family:'Cinzel'; font-size:1rem;}
+  .pillar p{margin-top:8px; font-family:'Cormorant Garamond'; color:var(--cream-dim); font-size:1.05rem;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-wrap{
+    max-width:560px; margin:0 auto; padding:60px 6vw 110px;
+    display:grid; grid-template-columns:1fr; gap:50px;
+  }
+  .contact-card{
+    border:1px solid rgba(201,162,77,.25); padding:36px 30px; text-align:center;
+    background:linear-gradient(180deg, var(--black-3), var(--black-2));
+  }
+  .contact-card h3{color:var(--cream); font-size:1.2rem; margin-bottom:12px;}
+  .contact-card p{font-family:'Cormorant Garamond'; color:var(--cream-dim); font-size:1.1rem; margin-bottom:22px;}
+  .wa-btn{
+    display:inline-flex; align-items:center; gap:10px; padding:14px 30px;
+    background:#25D366; color:#0a0908; font-family:'Cinzel'; font-weight:600;
+    font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase;
+    border-radius:4px; transition:.3s;
+  }
+  .wa-btn:hover{filter:brightness(1.1); box-shadow:0 0 24px rgba(37,211,102,.4);}
+  .contact-info{margin-top:24px; font-family:'Cormorant Garamond'; color:var(--cream-dim); font-size:1.05rem; line-height:1.8;}
+  .contact-info b{color:var(--gold-bright); font-family:'Jost'; font-weight:400;}
+
+  /* ---------- Floating WhatsApp ---------- */
+  .float-wa{
+    position:fixed; bottom:26px; right:26px; z-index:200;
+    width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.5); animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5);}70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+  .float-wa svg{width:30px; height:30px;}
+
+  /* ---------- Cart drawer ---------- */
+  .cart-drawer{
+    position:fixed; top:0; right:-380px; width:340px; height:100%; z-index:300;
+    background:var(--black-3); border-left:1px solid rgba(201,162,77,.3);
+    padding:26px 22px; transition:right .4s ease; overflow-y:auto;
+  }
+  .cart-drawer.open{right:0;}
+  .cart-drawer h3{font-family:'Cinzel'; color:var(--gold-bright); margin-bottom:18px; letter-spacing:1px;}
+  .cart-item{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(201,162,77,.15); font-size:.9rem;}
+  .cart-item span.rm{color:var(--cream-dim); cursor:pointer; font-size:1rem;}
+  .cart-total{margin-top:20px; padding-top:16px; border-top:1px solid var(--gold-dim); display:flex; justify-content:space-between; font-family:'Cinzel'; color:var(--gold-bright);}
+  .close-cart{position:absolute; top:22px; right:22px; color:var(--gold); cursor:pointer; font-size:1.3rem;}
+  .empty-cart{color:var(--cream-dim); font-family:'Cormorant Garamond'; font-style:italic; margin-top:20px;}
+  .drawer-cod{margin-top:22px; font-size:.75rem; color:var(--gold); letter-spacing:1px; text-align:center;}
+  .checkout-wa{display:block; text-align:center; margin-top:14px;}
+
+  .overlay{position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:290; display:none;}
+  .overlay.show{display:block;}
+
+  footer{
+    text-align:center; padding:34px 20px; border-top:1px solid rgba(201,162,77,.2);
+    color:var(--cream-dim); font-size:.8rem; letter-spacing:1px;
+  }
+  footer .brand{display:block; margin-bottom:8px; font-size:1rem;}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:820px){
+    .nav-links{
+      position:fixed; top:64px; right:0; width:220px; background:var(--black-3);
+      flex-direction:column; padding:24px; gap:22px; transform:translateX(100%);
+      transition:.35s; border-left:1px solid rgba(201,162,77,.25); border-bottom:1px solid rgba(201,162,77,.25);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .burger{display:flex;}
+    .contact-wrap{grid-template-columns:1fr;}
+  }
+  @media(max-width:480px){
+    header{padding:14px 18px;}
+    .brand{font-size:1.05rem; letter-spacing:1.5px;}
+    .hero{min-height:80vh;}
+    .cart-drawer{width:88%; right:-100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="brand">ROYAL <span>PERFUMES</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="goTo('home')" class="nav-a active" data-p="home">Home</a></li>
+    <li><a onclick="goTo('shop')" class="nav-a" data-p="shop">Shop</a></li>
+    <li><a onclick="goTo('about')" class="nav-a" data-p="about">About Us</a></li>
+    <li><a onclick="goTo('contact')" class="nav-a" data-p="contact">Contact</a></li>
+  </ul>
+  <div style="display:flex; align-items:center; gap:20px;">
+    <div class="cart-icon" onclick="toggleCart(true)">🛍<span class="cart-count" id="cartCount">0</span></div>
+    <div class="burger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="corner-ornament tl"><svg viewBox="0 0 60 60"><path d="M2,30 Q2,2 30,2"/><circle cx="2" cy="30" r="2.5"/><circle cx="30" cy="2" r="2.5"/></svg></div>
+    <div class="corner-ornament tr"><svg viewBox="0 0 60 60"><path d="M2,30 Q2,2 30,2"/><circle cx="2" cy="30" r="2.5"/><circle cx="30" cy="2" r="2.5"/></svg></div>
+    <div class="corner-ornament bl"><svg viewBox="0 0 60 60"><path d="M2,30 Q2,2 30,2"/><circle cx="2" cy="30" r="2.5"/><circle cx="30" cy="2" r="2.5"/></svg></div>
+    <div class="corner-ornament br"><svg viewBox="0 0 60 60"><path d="M2,30 Q2,2 30,2"/><circle cx="2" cy="30" r="2.5"/><circle cx="30" cy="2" r="2.5"/></svg></div>
+
+    <div class="eyebrow">Est. Excellence · House of Fragrance</div>
+    <h1>Wear Your <em>Royalty</em></h1>
+    <p class="tagline">Every fragrance a royal feeling — chosen for you, crafted for your grandeur.</p>
+    <div class="hero-btns">
+      <a class="btn solid" onclick="goTo('shop')">Shop The Collection</a>
+      <a class="btn" href="https://wa.me/923711572580?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order%20with%20Royal%20Perfumes" target="_blank">Order on WhatsApp</a>
+    </div>
+    <div class="cod-badge">Cash On Delivery Available</div>
+  </div>
+
+  <div class="bestseller-strip">
+    <div class="section-heading">
+      <div class="eyebrow">Most Loved</div>
+      <h2>Best Seller Perfumes</h2>
+    </div>
+    <div class="bs-grid" id="bestsellerGrid"></div>
+  </div>
+</section>
+
+<!-- ================= SHOP ================= -->
+<section class="page" id="shop">
+  <div class="section-heading" style="padding-top:20px;">
+    <div class="eyebrow">Full Collection</div>
+    <h2>Shop Royal Fragrances</h2>
+  </div>
+  <div class="shop-grid" id="shopGrid"></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="page" id="about">
+  <div class="about-wrap">
+    <div class="eyebrow">Our Story</div>
+    <h2 style="color:var(--cream); font-size:2rem;">About Royal Perfumes</h2>
+    <p class="story">
+      Royal Perfumes began with a simple wish — to bring
+      <strong>true royal fragrance</strong> to every Pakistani home, without costing a fortune.
+      We believe fragrance is not just a product, it's a <strong>reflection of your personality</strong>.
+      That's why every bottle is crafted with honesty, care, and a royal touch —
+      so that when you step out, your presence stands apart.
+    </p>
+    <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+    <div class="pillars">
+      <div class="pillar"><div class="num">01</div><h4>True Quality</h4><p>Long-lasting, premium ingredients.</p></div>
+      <div class="pillar"><div class="num">02</div><h4>Royal Packaging</h4><p>Every order arrives in royal style.</p></div>
+      <div class="pillar"><div class="num">03</div><h4>Fast Delivery</h4><p>Quick delivery across Pakistan.</p></div>
+      <div class="pillar"><div class="num">04</div><h4>COD Trust</h4><p>See it first, then pay.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="page" id="contact">
+  <div class="section-heading" style="padding-top:20px;">
+    <div class="eyebrow">Get In Touch</div>
+    <h2>Contact Us</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-card">
+      <h3>Order Directly</h3>
+      <p>Have a question or ready to order? Message us on WhatsApp and we'll reply right away.</p>
+      <a class="wa-btn" href="https://wa.me/923711572580?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20Royal%20Perfumes" target="_blank">
+        <svg viewBox="0 0 32 32" fill="#0a0908"><path d="M16.1,2.4C8.5,2.4,2.4,8.5,2.4,16c0,2.5,0.7,4.9,2,7l-2.1,7.6l7.8-2c2,1.1,4.3,1.7,6.7,1.7c7.6,0,13.7-6.1,13.7-13.7C29.9,8.5,23.7,2.4,16.1,2.4z M16.1,27.1c-2.1,0-4.2-0.6-6-1.7l-0.4-0.3l-4.6,1.2l1.2-4.5l-0.3-0.4c-1.2-1.9-1.8-4-1.8-6.3c0-6.5,5.3-11.7,11.8-11.7c6.5,0,11.7,5.3,11.7,11.7C27.8,21.9,22.6,27.1,16.1,27.1z"/></svg>
+        Order on WhatsApp
+      </a>
+      <div class="contact-info">
+        <b>WhatsApp:</b> 0371 1572580<br>
+        <b>Email:</b> ym5196005@gmail.com<br>
+        <b>Cash On Delivery:</b> Available across Pakistan
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">ROYAL PERFUMES</span>
+  © 2026 Royal Perfumes. Truly Royal, Truly You. · COD Available
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="float-wa" href="https://wa.me/923711572580?text=Hello%2C%20I%20would%20like%20to%20place%20an%20order" target="_blank">
+  <svg viewBox="0 0 32 32" fill="#0a0908"><path d="M16.1,2.4C8.5,2.4,2.4,8.5,2.4,16c0,2.5,0.7,4.9,2,7l-2.1,7.6l7.8-2c2,1.1,4.3,1.7,6.7,1.7c7.6,0,13.7-6.1,13.7-13.7C29.9,8.5,23.7,2.4,16.1,2.4z M16.1,27.1c-2.1,0-4.2-0.6-6-1.7l-0.4-0.3l-4.6,1.2l1.2-4.5l-0.3-0.4c-1.2-1.9-1.8-4-1.8-6.3c0-6.5,5.3-11.7,11.8-11.7c6.5,0,11.7,5.3,11.7,11.7C27.8,21.9,22.6,27.1,16.1,27.1z"/></svg>
+</a>
+
+<!-- Cart Drawer -->
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <span class="close-cart" onclick="toggleCart(false)">✕</span>
+  <h3>Your Bag</h3>
+  <div id="cartItems"><div class="empty-cart">Your bag is empty.</div></div>
+  <div class="cart-total" id="cartTotal" style="display:none;"><span>Total</span><span id="cartTotalVal">Rs 0</span></div>
+  <div class="drawer-cod" id="drawerCod" style="display:none;">Cash On Delivery Available ✓</div>
+  <a class="btn solid checkout-wa" id="checkoutBtn" style="display:none;" target="_blank">Checkout on WhatsApp</a>
+</div>
+
+<script>
+  // ---------- Product data (12 perfumes) ----------
+  const products = [
+    {id:1, name:"Shahi Oudh", note:"Rich Woody Oud", price:2499},
+    {id:2, name:"Malika Rose", note:"Floral Rose & Musk", price:1999},
+    {id:3, name:"Sultan Noir", note:"Dark Amber & Spice", price:2799},
+    {id:4, name:"Zar-e-Ambar", note:"Golden Amber", price:2299},
+    {id:5, name:"Nawabi Musk", note:"Warm White Musk", price:1899},
+    {id:6, name:"Firdous Bloom", note:"Jasmine & Vanilla", price:2199},
+    {id:7, name:"Khan Reserve", note:"Leather & Tobacco", price:2999},
+    {id:8, name:"Yaqoot Elixir", note:"Saffron & Rose", price:3299},
+    {id:9, name:"Shab-e-Noor", note:"Citrus & Sandalwood", price:1799},
+    {id:10, name:"Ameer Legacy", note:"Oud & Cedarwood", price:2699},
+    {id:11, name:"Gulistan Musk", note:"Floral Musk Bouquet", price:2099},
+    {id:12, name:"Zafran Royale", note:"Saffron & Amber", price:3499},
+  ];
+
+  const bottleSVG = `
+    <svg viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="42" y="8" width="16" height="14" fill="#c9a24d"/>
+      <rect x="38" y="4" width="24" height="8" rx="2" fill="#e8cd8a"/>
+      <path d="M28,22 h44 a4,4 0 0 1 4,4 v14 a10,10 0 0 1 -4,8 c-6,4 -6,10 -6,16 v70 a6,6 0 0 1 -6,6 h-30 a6,6 0 0 1 -6,-6 v-70 c0,-6 0,-12 -6,-16 a10,10 0 0 1 -4,-8 v-14 a4,4 0 0 1 4,-4 z"
+        fill="#1c1916" stroke="#c9a24d" stroke-width="1.5"/>
+      <rect x="30" y="70" width="40" height="34" fill="none" stroke="#c9a24d" stroke-width="1"/>
+      <text x="50" y="90" text-anchor="middle" fill="#e8cd8a" font-size="9" font-family="Cinzel, serif">RP</text>
+    </svg>`;
+
+  function cardHTML(p, small){
+    return `
+    <div class="card">
+      <div class="bottle-art">${bottleSVG}</div>
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <div class="note">${p.note}</div>
+        <span class="price">Rs ${p.price.toLocaleString()}</span>
+        <button class="add-btn" id="btn-${p.id}${small?'-b':''}" onclick="addToCart(${p.id}, this)">Add to Cart</button>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('bestsellerGrid').innerHTML = products.slice(0,4).map(p=>cardHTML(p,true)).join('');
+  document.getElementById('shopGrid').innerHTML = products.map(p=>cardHTML(p,false)).join('');
+
+  // ---------- Navigation ----------
+  function goTo(id){
+    document.querySelectorAll('.page').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-a').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll('.nav-a[data-p="'+id+'"]').forEach(a=>a.classList.add('active'));
+    document.getElementById('navLinks').classList.remove('open');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // ---------- Cart ----------
+  let cart = {};
+
+  function addToCart(id, btn){
+    cart[id] = (cart[id]||0) + 1;
+    document.querySelectorAll('#'+btn.id+', [id="btn-'+id+'"], [id="btn-'+id+'-b"]').forEach(b=>{
+      b.textContent = "Added ✓";
+      b.classList.add('added');
+      setTimeout(()=>{ b.textContent="Add to Cart"; b.classList.remove('added'); }, 1200);
+    });
+    renderCart();
+    toggleCart(true);
+  }
+
+  function removeFromCart(id){
+    delete cart[id];
+    renderCart();
+  }
+
+  function renderCart(){
+    const items = Object.keys(cart);
+    const wrap = document.getElementById('cartItems');
+    const countEl = document.getElementById('cartCount');
+    const totalEl = document.getElementById('cartTotal');
+    const totalVal = document.getElementById('cartTotalVal');
+    const drawerCod = document.getElementById('drawerCod');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    countEl.textContent = items.reduce((s,id)=>s+cart[id],0);
+
+    if(items.length === 0){
+      wrap.innerHTML = '<div class="empty-cart">Your bag is empty.</div>';
+      totalEl.style.display='none'; drawerCod.style.display='none'; checkoutBtn.style.display='none';
+      return;
+    }
+
+    let total = 0;
+    let waText = "Hello, I would like to place this order:%0A";
+    wrap.innerHTML = items.map(id=>{
+      const p = products.find(x=>x.id==id);
+      const qty = cart[id];
+      total += p.price * qty;
+      waText += `- ${p.name} x${qty} (Rs ${p.price*qty})%0A`;
+      return `<div class="cart-item"><span>${p.name} x${qty}</span><span class="rm" onclick="removeFromCart(${id})">✕</span></div>`;
+    }).join('');
+    waText += `%0ATotal: Rs ${total}%0AI would like to order this via Cash On Delivery.`;
+
+    totalEl.style.display='flex';
+    totalVal.textContent = 'Rs ' + total.toLocaleString();
+    drawerCod.style.display='block';
+    checkoutBtn.style.display='block';
+    checkoutBtn.href = `https://wa.me/923711572580?text=${waText}`;
+  }
+
+  function toggleCart(open){
+    document.getElementById('cartDrawer').classList.toggle('open', open);
+    document.getElementById('overlay').classList.toggle('show', open);
+  }
+</script>
+</body>
+</html>
